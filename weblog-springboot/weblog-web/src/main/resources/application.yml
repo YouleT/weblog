@@ -1,5 +1,5 @@
 spring:
   profiles:
-    # ???? dev ??
-    #active: dev
-    active: prod
+    # 默认激活 dev 环境
+    active: dev
+    #active: prod
