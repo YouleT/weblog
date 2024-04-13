@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!-- 将 Spring Boot 的版本号切换成 2.6 版本 -->
+        <!-- 将 Spring Boot 的版本号切换成 2.6.3 版本 -->
         <version>2.6.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>com.quanxiaoha</groupId>
@@ -36,11 +37,13 @@
         <knife4j.version>4.3.0</knife4j.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <p6spy.version>3.9.1</p6spy.version>
+        <jjwt.version>0.11.2</jjwt.version>
     </properties>
 
     <!-- 统一依赖管理 -->
     <dependencyManagement>
         <dependencies>
+            <!--子模块配置-->
             <dependency>
                 <groupId>com.quanxiaoha</groupId>
                 <artifactId>weblog-module-admin</artifactId>
@@ -51,7 +54,12 @@
                 <artifactId>weblog-module-common</artifactId>
                 <version>${revision}</version>
             </dependency>
-            
+            <dependency>
+                <groupId>com.quanxiaoha</groupId>
+                <artifactId>weblog-module-jwt</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- 常用工具库 -->
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -68,6 +76,16 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
 
@@ -89,8 +107,26 @@
                 <artifactId>p6spy</artifactId>
                 <version>${p6spy.version}</version>
             </dependency>
+
+            <!--JWT-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
     <!-- 子模块管理 -->
     <modules>
         <!-- 入口模块 -->
@@ -99,6 +135,8 @@
         <module>weblog-module-admin</module>
         <!-- 通用模块 -->
         <module>weblog-module-common</module>
+        <!-- JWT 模块 -->
+        <module>weblog-module-jwt</module>
     </modules>
 
     <build>
@@ -120,6 +158,7 @@
             </plugins>
         </pluginManagement>
     </build>
+
     <!-- 使用阿里云的 Maven 仓库源，提升包下载速度 -->
     <repositories>
         <repository>
