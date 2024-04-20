@@ -15,8 +15,9 @@
             </div>
         </div>
         <div class="col-span-2 order-1 md:col-span-1 md:order-2 bg-white">
-        	<!-- flex-col 用于指定子元素垂直排列 -->
-            <div class="flex justify-center items-center h-full flex-col animate__animated animate__bounceInRight animate__fast">
+            <!-- flex-col 用于指定子元素垂直排列 -->
+            <div
+                class="flex justify-center items-center h-full flex-col animate__animated animate__bounceInRight animate__fast">
                 <h1 class="font-bold text-4xl mb-5">欢迎回来</h1>
                 <!-- 设置 flex 布局，内容垂直水平居中，文字颜色，以及子内容水平方向 x 轴间距 -->
                 <div class="flex items-center justify-center mb-7 text-gray-400 space-x-2">
@@ -30,19 +31,21 @@
                 <el-form class="w-5/6 md:w-2/5" ref="formRef" :rules="rules" :model="form">
                     <el-form-item prop="username">
                         <!-- 输入框组件 -->
-                        <el-input size="large" v-model="form.username" placeholder="请输入用户名" :prefix-icon="User" clearable />
+                        <el-input size="large" v-model="form.username" placeholder="请输入用户名" :prefix-icon="User"
+                            clearable />
                     </el-form-item>
                     <el-form-item prop="password">
                         <!-- 密码框组件 -->
                         <el-input size="large" type="password" v-model="form.password" placeholder="请输入密码"
-                            :prefix-icon="Lock" clearable show-password/>
+                            :prefix-icon="Lock" clearable show-password />
                     </el-form-item>
                     <el-form-item>
                         <!-- 登录按钮，宽度设置为 100% -->
-                        <el-button class="w-full mt-2" size="large" :loading="loading" type="primary" @click="onSubmit">登录</el-button>
+                        <el-button class="w-full mt-2" size="large" :loading="loading" type="primary"
+                            @click="onSubmit">登录</el-button>
                     </el-form-item>
                 </el-form>
-                
+
             </div>
         </div>
     </div>
@@ -55,7 +58,7 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { login } from '@/api/admin/user'
 import { useRouter } from 'vue-router'
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
-import { showMessage} from '@/composables/util'
+import { showMessage } from '@/composables/util'
 import { setToken } from '@/composables/auth'
 
 // 定义响应式的表单对象
@@ -115,7 +118,7 @@ const onSubmit = () => {
                 // 存储 Token 到 Cookie 中
                 let token = res.data.token
                 setToken(token)
-                
+
                 // 跳转到后台首页
                 router.push('/admin/index')
             } else {
