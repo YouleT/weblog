@@ -59,7 +59,7 @@ import { login } from '@/api/admin/user'
 import { useRouter } from 'vue-router'
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 import { showMessage } from '@/composables/util'
-import { setToken } from '@/composables/auth'
+import { setToken } from '@/composables/cookie'
 
 // 定义响应式的表单对象
 const form = reactive({

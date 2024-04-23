@@ -11,7 +11,7 @@
 
         <!-- 右侧下拉菜单 -->
         <span class="ml-auto flex items-center justify-center h-[32px] w-[32px]">
-            <el-dropdown>
+            <el-dropdown @command="handleCloseTab">
                 <span class="el-dropdown-link">
                     <el-icon>
                         <arrow-down />
@@ -19,8 +19,8 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item>关闭其他</el-dropdown-item>
-                        <el-dropdown-item>关闭全部</el-dropdown-item>
+                        <el-dropdown-item command="closeOthers">关闭其他</el-dropdown-item>
+                        <el-dropdown-item command="closeAll">关闭全部</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -30,82 +30,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useMenuStore } from '@/stores/menu'
-import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
-import { setTabList, getTabList } from '@/composables/tag-list'
+import { useTabList } from '@/composables/useTagList.js'
 
-const route = useRoute()
-const router = useRouter()
-const menuStore = useMenuStore()
-// 当前被选中的 tab
-const activeTab = ref(route.path)
-// 导航栏 tab 数组
-const tabList = ref([
-    {
-        title: '仪表盘',
-        path: "/admin/index"
-    },
-    {
-        title: '文章管理',
-        path: "/admin/article/list"
-    },
-    {
-        title: '分类管理',
-        path: "/admin/category/list"
-    },
-    {
-        title: '标签管理',
-        path: "/admin/tag/list"
-    },
-    {
-        title: '博客设置',
-        path: "/admin/blog/setting"
-    }
-])
-
-// 标签页切换事件
-const tabChange = (path) => {
-    // 设置被激活的 Tab 标签
-    activeTab.value = path
-    // 路由跳转
-    router.push(path)
-}
-
-// 添加 Tab 标签页
-function addTab(tab) {
-    // 标签是否不存在
-    let isTabNotExisted = tabList.value.findIndex(item => item.path == tab.path) == -1
-    // 如果不存在
-    if (isTabNotExisted) {
-        // 添加标签
-        tabList.value.push(tab)
-    }
-    // 存储 tabList 到 cookie 中
-    setTabList(tabList.value)
-}
-
-const removeTab = (targetName) => { }
-
-function initTabList() {
-    // 从 cookie 中获取缓存起来的标签导航栏数据
-    let tabs = getTabList()
-    // 若不为空，则赋值
-    if (tabs) {
-        tabList.value = tabs
-    }
-}
-// 初始化标签导航栏
-initTabList()
-
-// 在路由切换前被调用
-onBeforeRouteUpdate((to, from) => {
-    // 打印控制台日志
-    console.log({
-        title: to.meta.title,
-        path: to.path
-    })
-})
+const { menuStore, activeTab, tabList, tabChange, removeTab, handleCloseTab } = useTabList()
 </script>
 
 <style>
