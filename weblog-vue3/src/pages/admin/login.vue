@@ -60,6 +60,7 @@ import { useRouter } from 'vue-router'
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 import { showMessage } from '@/composables/util'
 import { setToken } from '@/composables/cookie'
+import { useUserStore } from '@/stores/user'
 
 // 定义响应式的表单对象
 const form = reactive({
@@ -75,6 +76,8 @@ const formRef = ref(null)
 
 // 登录按钮加载
 const loading = ref(false)
+
+const userStore = useUserStore()
 
 // 表单验证规则
 const rules = {
@@ -119,6 +122,9 @@ const onSubmit = () => {
                 let token = res.data.token
                 setToken(token)
 
+                // 获取用户信息，并存储到全局状态中
+                userStore.setUserInfo()
+                
                 // 跳转到后台首页
                 router.push('/admin/index')
             } else {
