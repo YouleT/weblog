@@ -1,10 +1,9 @@
 package com.quanxiaoha.weblog.admin.service;
 
-import com.quanxiaoha.weblog.admin.model.vo.category.AddCategoryReqVO;
-import com.quanxiaoha.weblog.admin.model.vo.category.DeleteCategoryReqVO;
-import com.quanxiaoha.weblog.admin.model.vo.category.FindCategoryPageListReqVO;
 import com.quanxiaoha.weblog.admin.model.vo.tag.AddTagReqVO;
+import com.quanxiaoha.weblog.admin.model.vo.tag.DeleteTagReqVO;
 import com.quanxiaoha.weblog.admin.model.vo.tag.FindTagPageListReqVO;
+import com.quanxiaoha.weblog.admin.model.vo.tag.SearchTagsReqVO;
 import com.quanxiaoha.weblog.common.utils.PageResponse;
 import com.quanxiaoha.weblog.common.utils.Response;
 
@@ -31,4 +30,20 @@ public interface AdminTagService {
      * @return
      */
     PageResponse findTagPageList(FindTagPageListReqVO findTagPageListReqVO);
+
+    /**
+     * 删除标签
+     *
+     * @param deleteTagReqVO
+     * @return
+     */
+    Response deleteTag(DeleteTagReqVO deleteTagReqVO);
+
+    /**
+     * 根据标签关键词模糊查询
+     *
+     * @param searchTagsReqVO
+     * @return
+     */
+    Response searchTags(SearchTagsReqVO searchTagsReqVO);
 }
