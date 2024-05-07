@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -39,6 +40,6 @@ public class PublishArticleReqVO {
     @NotNull(message = "文章分类不能为空")
     private Long categoryId;
 
-    // @NotEmpty(message = "文章标签不能为空")
+    @NotEmpty(message = "文章标签不能为空")
     private List<String> tags;
 }

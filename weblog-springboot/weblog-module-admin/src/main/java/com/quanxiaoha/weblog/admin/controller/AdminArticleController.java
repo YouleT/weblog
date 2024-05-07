@@ -1,5 +1,8 @@
 package com.quanxiaoha.weblog.admin.controller;
 
+import com.quanxiaoha.weblog.admin.model.vo.article.DeleteArticleReqVO;
+import com.quanxiaoha.weblog.admin.model.vo.article.FindArticleDetailReqVO;
+import com.quanxiaoha.weblog.admin.model.vo.article.FindArticlePageListReqVO;
 import com.quanxiaoha.weblog.admin.model.vo.article.PublishArticleReqVO;
 import com.quanxiaoha.weblog.admin.service.AdminArticleService;
 import com.quanxiaoha.weblog.common.aspect.ApiOperationLog;
@@ -30,4 +33,25 @@ public class AdminArticleController {
         return articleService.publishArticle(publishArticleReqVO);
     }
 
+    @PostMapping("/delete")
+    @ApiOperation(value = "文章删除")
+    @ApiOperationLog(description = "文章删除")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Response deleteArticle(@RequestBody @Validated DeleteArticleReqVO deleteArticleReqVO) {
+        return articleService.deleteArticle(deleteArticleReqVO);
+    }
+
+    @PostMapping("/list")
+    @ApiOperation(value = "查询文章分页数据")
+    @ApiOperationLog(description = "查询文章分页数据")
+    public Response findArticlePageList(@RequestBody @Validated FindArticlePageListReqVO findArticlePageListReqVO) {
+        return articleService.findArticlePageList(findArticlePageListReqVO);
+    }
+
+    @PostMapping("/detail")
+    @ApiOperation(value = "查询文章详情")
+    @ApiOperationLog(description = "查询文章详情")
+    public Response findArticleDetail(@RequestBody @Validated FindArticleDetailReqVO findArticlePageListReqVO) {
+        return articleService.findArticleDetail(findArticlePageListReqVO);
+    }
 }
