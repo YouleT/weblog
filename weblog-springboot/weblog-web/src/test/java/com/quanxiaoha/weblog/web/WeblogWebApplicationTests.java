@@ -36,7 +36,7 @@ class WeblogWebApplicationTests {
         // 构建数据库实体类
         UserDO userDO = UserDO.builder()
                 .username("test")
-                .password("$2a$10$EPTL8vAxmSbTB12dCAxb4uMGaMngKfFFbPc3mM32MW2wKOxX8ieKa")
+                .password("$2a$10$030DRCcwOVLnkdxx1RUQuOsyVs.I9LY9cAh7qRldghHNBjjRMGhd6")
                 .createTime(new Date())
                 .updateTime(new Date())
                 .isDeleted(false)

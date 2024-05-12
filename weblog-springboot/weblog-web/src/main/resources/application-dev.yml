@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     url: jdbc:p6spy:mysql://121.37.160.132:3306/weblog?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
-    password: 123456
+    password: Pm6rALjdWghAoBv72UQF
     hikari:
       minimum-idle: 5
       maximum-pool-size: 20
