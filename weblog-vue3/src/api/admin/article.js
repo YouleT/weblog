@@ -17,7 +17,7 @@ export function publishArticle(data) {
 
 // 获取文章详情
 export function getArticleDetail(id) {
-    return axios.post("/admin/article/detail", {id})
+    return axios.post("/admin/article/detail", { id })
 }
 
 // 更新文章
