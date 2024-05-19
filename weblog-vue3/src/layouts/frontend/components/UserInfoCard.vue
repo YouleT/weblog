@@ -10,12 +10,13 @@
             <span class="text-sm text-gray-500 dark:text-gray-400">{{ blogSettingsStore.blogSettings.introduction
                 }}</span>
             <!-- 第三方平台主页跳转（如 GitHub 等） -->
-            <div class="flex justify-center mt-5 gap-2">
+            <div class="flex justify-center gap-2">
                 <!-- GitHub -->
-                <svg v-if="blogSettingsStore.blogSettings.githubHomepage" t="1698029949662"
-                    data-tooltip-target="github-tooltip-bottom" data-tooltip-placement="bottom" class="icon w-7 h-7"
-                    viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1447" width="200"
-                    height="200">
+                <svg @click="jump(blogSettingsStore.blogSettings.githubHomepage)"
+                    v-if="blogSettingsStore.blogSettings.githubHomepage" t="1698029949662"
+                    data-tooltip-target="github-tooltip-bottom" data-tooltip-placement="bottom"
+                    class="icon mt-5 w-7 h-7" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    p-id="1447" width="200" height="200">
                     <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#4186F5" p-id="1448">
                     </path>
                     <path
@@ -31,8 +32,9 @@
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
                 <!-- Gitee -->
-                <svg v-if="blogSettingsStore.blogSettings.giteeHomepage" t="1698030969736"
-                    data-tooltip-target="gitee-tooltip-bottom" data-tooltip-placement="bottom" class="icon w-7 h-7"
+                <svg @click="jump(blogSettingsStore.blogSettings.giteeHomepage)"
+                    v-if="blogSettingsStore.blogSettings.giteeHomepage" t="1698030969736"
+                    data-tooltip-target="gitee-tooltip-bottom" data-tooltip-placement="bottom" class="icon mt-5 w-7 h-7"
                     viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2438" width="200"
                     height="200">
                     <path
@@ -45,8 +47,9 @@
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
                 <!-- 知乎 -->
-                <svg v-if="blogSettingsStore.blogSettings.zhihuHomepage" t="1698031258903"
-                    data-tooltip-target="zhihu-tooltip-bottom" data-tooltip-placement="bottom" class="icon w-7 h-7"
+                <svg @click="jump(blogSettingsStore.blogSettings.zhihuHomepage)"
+                    v-if="blogSettingsStore.blogSettings.zhihuHomepage" t="1698031258903"
+                    data-tooltip-target="zhihu-tooltip-bottom" data-tooltip-placement="bottom" class="icon mt-5 w-7 h-7"
                     viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3419" width="200"
                     height="200">
                     <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#FFFFFF" p-id="3420">
@@ -63,8 +66,9 @@
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
                 <!-- CSDN -->
-                <svg v-if="blogSettingsStore.blogSettings.csdnHomepage" t="1698031311586"
-                    data-tooltip-target="csdn-tooltip-bottom" data-tooltip-placement="bottom" class="icon w-7 h-7"
+                <svg @click="jump(blogSettingsStore.blogSettings.csdnHomepage)"
+                    v-if="blogSettingsStore.blogSettings.csdnHomepage" t="1698031311586"
+                    data-tooltip-target="csdn-tooltip-bottom" data-tooltip-placement="bottom" class="icon mt-5 w-7 h-7"
                     viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4386" width="200"
                     height="200">
                     <path
@@ -83,14 +87,12 @@
 
 <script setup>
 import { useBlogSettingsStore } from '@/stores/blogsettings'
-import { initTooltips } from 'flowbite'
-import { onMounted } from 'vue'
-
-// 初始化 Flowbit 组件
-onMounted(() => {
-    initTooltips();
-})
 
 // 引入博客设置信息 store
 const blogSettingsStore = useBlogSettingsStore()
+
+const jump = (url) => {
+    // 在新窗口访问新的链接地址
+    window.open(url, '_blank');
+} 
 </script>
