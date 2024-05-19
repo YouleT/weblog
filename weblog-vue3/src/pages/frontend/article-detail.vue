@@ -127,7 +127,7 @@
 
             <!-- 右边侧边栏，占用一列 -->
             <aside class="col-span-4 md:col-span-1">
-                <div class="sticky top-[5.5rem]">
+                <div>
                     <!-- 博主信息 -->
                     <UserInfoCard></UserInfoCard>
 
@@ -137,10 +137,16 @@
                     <!-- 标签 -->
                     <TagListCard></TagListCard>
                 </div>
+                
+                <!-- 文章目录 -->
+                <Toc></Toc>
+
             </aside>
         </div>
-
     </main>
+
+    <!-- 返回顶部 -->
+    <ScrollToTopButton></ScrollToTopButton>
 
     <Footer></Footer>
 </template>
@@ -151,9 +157,11 @@ import Footer from '@/layouts/frontend/components/Footer.vue'
 import UserInfoCard from '@/layouts/frontend/components/UserInfoCard.vue'
 import TagListCard from '@/layouts/frontend/components/TagListCard.vue'
 import CategoryListCard from '@/layouts/frontend/components/CategoryListCard.vue'
+import ScrollToTopButton from '@/layouts/frontend/components/ScrollToTopButton.vue'
+import Toc from '@/layouts/frontend/components/Toc.vue'
 import { getArticleDetail } from '@/api/frontend/article'
 import { useRoute, useRouter } from 'vue-router'
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/tokyo-night-dark.css'
 
@@ -168,9 +176,14 @@ const article = ref({})
 // 获取文章详情
 function refreshArticleDetail(articleId) {
     getArticleDetail(route.params.articleId).then((res) => {
-        if (res.success) {
-            article.value = res.data
+        // 该文章不存在(错误码为 20010)
+        if (!res.success && res.errorCode == '20010') {
+            // 手动跳转 404 页面
+            router.push({ name: 'NotFound' })
+            return
         }
+
+        article.value = res.data
     })
 }
 refreshArticleDetail(route.params.articleId)
@@ -203,7 +216,7 @@ onMounted(() => {
                 let highlight = document.querySelectorAll('pre code')
                 // 循环高亮
                 highlight.forEach((block) => {
-                    hljs.highlightBlock(block)
+                    hljs.highlightElement(block)
                 })
             }
         }
@@ -214,6 +227,87 @@ onMounted(() => {
     // 开始观察内容变化
     observer.observe(articleContentRef.value, config)
 })
+
+// const activeHeadingIndex = ref(-1)
+// function handleContentScroll() {
+    
+//     let scrollY = window.scrollY
+//     console.log('滚动事件触发, scroll-y:' + scrollY)
+//     titles.value.forEach(title => {
+//         let scrollTop = title.scrollTop
+//         console.log('父类 scrollTop:' + scrollTop)
+//         if (scrollY >= scrollTop) {
+//             activeHeadingIndex.value = title.index
+//         }
+//         // 子
+//         let children = title.children
+//         if (children && children.length > 0) {
+
+//             children.forEach(child => {
+//             let childScrollTop = child.scrollTop
+//             console.log('子类 scrollTop:' + childScrollTop)
+//             if (scrollY >= childScrollTop) {
+//                 activeHeadingIndex.value = child.index
+//             }
+//         })
+//         }
+//     })
+
+//     console.log(activeHeadingIndex.value)
+
+// }
+
+// onBeforeUnmount(() => window.removeEventListener('scroll', handleContentScroll))
+
+// // 滚动到指定的位置
+// function scrollToView(scrollTop) {
+//     window.scrollTo({ top: scrollTop, behavior: "smooth" });
+// }
+
+// function initToc() {
+//     let titlesArr = []
+//     let levels = ['h2', 'h3']
+//     let container = document.querySelector('.article-content')
+
+//     if (!container) {
+//         return titles
+//     }
+
+//     let headings = container.querySelectorAll(levels)
+//     console.log(headings)
+
+//     let index = 1
+//     headings.forEach(heading => {
+//         let headingLevel = parseInt(heading.tagName.substring(1))
+//         let headingText = heading.innerText
+//         let scrollTop = heading.offsetTop - 95
+//         console.log('index: ' + index)
+
+//         if (headingLevel === 2) {
+//             titlesArr.push({
+//                 index,
+//                 level: headingLevel,
+//                 text: headingText,
+//                 id: headingText,
+//                 scrollTop: scrollTop,
+//                 children: []
+//             })
+//         } else { // 子标题
+//             let parentHeading = titlesArr[titlesArr.length - 1]
+//             parentHeading.children.push({
+//                 index,
+//                 level: headingLevel,
+//                 text: headingText,
+//                 scrollTop: scrollTop,
+//             })
+//         }
+//         index++
+//     })
+
+//     console.log('重新组合后的')
+//     console.log(titlesArr)
+//     titles.value = titlesArr
+// }
 </script>
 
 <style>
