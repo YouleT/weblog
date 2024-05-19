@@ -9,3 +9,5 @@ export function getTagList(data) {
 export function getTagArticlePageList(data) {
     return axios.post("/tag/article/list", data)
 }
+
+

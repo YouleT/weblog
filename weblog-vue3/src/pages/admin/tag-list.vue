@@ -68,10 +68,10 @@
                     </el-tag>
                     <span class="w-20">
                         <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" class="ml-1 w-20" size="small"
-                            @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
-                        <el-button v-else class="button-new-tag ml-1" size="small" @click="showInput">
-                            + 新增标签
-                        </el-button>
+                        @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
+                    <el-button v-else class="button-new-tag ml-1" size="small" @click="showInput">
+                        + 新增标签
+                    </el-button>
                     </span>
                 </el-form-item>
             </el-form>
@@ -223,7 +223,6 @@ const onSubmit = () => {
                 showMessage(message, 'error')
             }
         }).finally(() => formDialogRef.value.closeBtnLoading()) // 隐藏提交按钮 loading
-
     })
 }
 
@@ -258,22 +257,22 @@ const inputVisible = ref(false)
 const InputRef = ref('')
 
 const handleClose = (tag) => {
-    dynamicTags.value.splice(dynamicTags.value.indexOf(tag), 1)
+  dynamicTags.value.splice(dynamicTags.value.indexOf(tag), 1)
 }
 
 const showInput = () => {
-    inputVisible.value = true
-    nextTick(() => {
-        InputRef.value.input.focus()
-    })
+  inputVisible.value = true
+  nextTick(() => {
+    InputRef.value.input.focus()
+  })
 }
 
 const handleInputConfirm = () => {
-    if (inputValue.value) {
-        dynamicTags.value.push(inputValue.value)
-    }
-    inputVisible.value = false
-    inputValue.value = ''
+  if (inputValue.value) {
+    dynamicTags.value.push(inputValue.value)
+  }
+  inputVisible.value = false
+  inputValue.value = ''
 }
 
 </script>

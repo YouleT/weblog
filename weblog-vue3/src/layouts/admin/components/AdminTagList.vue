@@ -1,11 +1,8 @@
 <template>
     <!-- 左边：标签导航栏 -->
-    <div class="fixed top-[64px] h-[44px] px-2 right-0 z-50 flex items-center bg-white transition-all duration-300 shadow"
-        :style="{ left: menuStore.menuWidth }">
-        <el-tabs v-model="activeTab" type="card" class="demo-tabs" @tab-remove="removeTab" @tab-change="tabChange"
-            style="min-width: 10px;">
-            <el-tab-pane v-for="item in tabList" :key="item.path" :label="item.title" :name="item.path"
-                :closable="item.path != '/admin/index'">
+    <div class="fixed top-[64px] h-[44px] px-2 right-0 z-50 flex items-center bg-white transition-all duration-300 shadow" :style="{left: menuStore.menuWidth}">
+        <el-tabs v-model="activeTab" type="card" class="demo-tabs" @tab-remove="removeTab" @tab-change="tabChange" style="min-width: 10px;">
+            <el-tab-pane v-for="item in tabList" :key="item.path" :label="item.title" :name="item.path" :closable="item.path != '/admin/index'">
             </el-tab-pane>
         </el-tabs>
 
@@ -38,17 +35,17 @@ const { menuStore, activeTab, tabList, tabChange, removeTab, handleCloseTab } = 
 <style>
 .el-tabs__item {
     font-size: 12px;
-    border: 1px solid #d8dce5 !important;
-    border-radius: 3px !important;
+    border: 1px solid #d8dce5!important;
+    border-radius: 3px!important;
 }
 
 .el-tabs--card>.el-tabs__header .el-tabs__item {
-    margin-left: 0.1rem !important;
-    margin-right: 0.1rem !important;
+    margin-left: 0.1rem!important;
+    margin-right: 0.1rem!important;
 }
 
 .el-tabs__item.is-active {
-    background-color: var(--el-color-primary) !important;
+    background-color: var(--el-color-primary)!important;
     color: #fff;
 }
 
@@ -86,8 +83,7 @@ const { menuStore, activeTab, tabList, tabChange, removeTab, handleCloseTab } = 
     border: 0;
 }
 
-.el-tabs__nav-prev,
-.el-tabs__nav-next {
+.el-tabs__nav-prev, .el-tabs__nav-next {
     line-height: 35px;
 }
 
@@ -95,4 +91,5 @@ const { menuStore, activeTab, tabList, tabChange, removeTab, handleCloseTab } = 
     cursor: not-allowed;
     color: #d1d5db;
 }
+
 </style>

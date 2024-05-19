@@ -55,6 +55,7 @@ export function useTabList() {
 
     // 标签页切换事件
     const tabChange = (path) => {
+        console.log('切回了')
         // 设置被激活的 Tab 标签
         activeTab.value = path
         // 路由跳转
@@ -105,8 +106,6 @@ export function useTabList() {
             activeTab.value = indexPath
             // 只保留首页
             tabList.value = tabList.value.filter((tab) => tab.path == indexPath)
-            // 切换标签页
-            tabChange(activeTab.value)
         }
 
         // 设置到 cookie 中

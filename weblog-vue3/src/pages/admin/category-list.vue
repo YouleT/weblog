@@ -11,7 +11,7 @@
                 <div class="ml-3 w-30 mr-5">
                     <!-- 日期选择组件（区间选择） -->
                     <el-date-picker v-model="pickDate" type="daterange" range-separator="至" start-placeholder="开始时间"
-                        end-placeholder="结束时间" size="default" :shortcuts="shortcuts" @change="datepickerChange" />
+                        end-placeholder="结束时间" size="default" :shortcuts="shortcuts" @change="datepickerChange"/>
                 </div>
 
                 <el-button type="primary" class="ml-3" :icon="Search" @click="getTableData">查询</el-button>
@@ -33,35 +33,35 @@
             <el-table :data="tableData" border stripe style="width: 100%" v-loading="tableLoading">
                 <el-table-column prop="name" label="分类名称" width="180" />
                 <el-table-column prop="createTime" label="创建时间" width="180" />
-                <el-table-column label="操作">
+                <el-table-column label="操作" >
                     <template #default="scope">
-                        <el-button type="danger" size="small" @click="deleteCategorySubmit(scope.row)">
-                            <el-icon class="mr-1">
-                                <Delete />
-                            </el-icon>
-                            删除
-                        </el-button>
-                    </template>
+                    <el-button type="danger" size="small" @click="deleteCategorySubmit(scope.row)">
+                        <el-icon class="mr-1">
+                            <Delete />
+                        </el-icon>
+                        删除
+                    </el-button>
+                </template>
                 </el-table-column>
             </el-table>
 
             <!-- 分页 -->
             <div class="mt-10 flex justify-center">
                 <el-pagination v-model:current-page="current" v-model:page-size="size" :page-sizes="[10, 20, 50]"
-                    :small="false" :background="true" layout="total, sizes, prev, pager, next, jumper" :total="total"
-                    @size-change="handleSizeChange" @current-change="getTableData" />
+                :small="false" :background="true" layout="total, sizes, prev, pager, next, jumper"
+                :total="total" @size-change="handleSizeChange" @current-change="getTableData" />
             </div>
 
         </el-card>
 
-        <!-- 添加分类 -->
-        <FormDialog ref="formDialogRef" title="添加文章分类" destroyOnClose @submit="onSubmit">
-            <el-form ref="formRef" :rules="rules" :model="form">
-                <el-form-item label="分类名称" prop="name" label-width="80px" size="large">
-                    <el-input v-model="form.name" placeholder="请输入分类名称" maxlength="20" show-word-limit clearable />
-                </el-form-item>
-            </el-form>
-        </FormDialog>
+    <!-- 添加分类 -->
+    <FormDialog ref="formDialogRef" title="添加文章分类" destroyOnClose @submit="onSubmit">
+        <el-form ref="formRef" :rules="rules" :model="form">
+                    <el-form-item label="分类名称" prop="name" label-width="80px" size="large">
+                        <el-input v-model="form.name" placeholder="请输入分类名称" maxlength="20" show-word-limit clearable/>
+                    </el-form-item>
+                </el-form>
+    </FormDialog>
 
     </div>
 </template>
@@ -138,18 +138,18 @@ function getTableData() {
     // 显示表格 loading
     tableLoading.value = true
     // 调用后台分页接口，并传入所需参数
-
-    getCategoryPageList({ current: current.value, size: size.value, startDate: startDate.value, endDate: endDate.value, name: searchCategoryName.value })
-        .then((res) => {
-            if (res.success == true) {
-
-                tableData.value = res.data
-                current.value = res.current
-                size.value = res.size
-                total.value = res.total
-            }
-        })
-        .finally(() => tableLoading.value = false) // 隐藏表格 loading
+    
+    getCategoryPageList({current: current.value, size: size.value, startDate: startDate.value, endDate: endDate.value, name: searchCategoryName.value})
+    .then((res) => {
+        if (res.success == true) {
+        
+            tableData.value = res.data
+            current.value = res.current
+            size.value = res.size
+            total.value = res.total
+        }
+    })
+    .finally(() => tableLoading.value = false) // 隐藏表格 loading
 }
 getTableData()
 
@@ -204,7 +204,8 @@ const onSubmit = () => {
             console.log('表单验证不通过')
             return false
         }
-        // 
+        
+        // 显示提交按钮 loading
         formDialogRef.value.showBtnLoading()
         addCategory(form).then((res) => {
             if (res.success == true) {
@@ -221,7 +222,7 @@ const onSubmit = () => {
                 // 提示错误消息
                 showMessage(message, 'error')
             }
-        }).finally(() => formDialogRef.value.closeBtnLoading())
+        }).finally(() => formDialogRef.value.closeBtnLoading()) // 隐藏提交按钮 loading
 
     })
 }

@@ -9,3 +9,5 @@ export function getCategoryList(data) {
 export function getCategoryArticlePageList(data) {
     return axios.post("/category/article/list", data)
 }
+
+
