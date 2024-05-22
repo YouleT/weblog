@@ -20,11 +20,11 @@
             <ul>
                 <!-- 二级标题 -->
                 <li v-for="(h2, index) in titles" :key="index" class="pl-5" :class="[h2.index == activeHeadingIndex ? 'active text-sky-600 border-l-2 border-sky-600 font-bold' : 'text-gray-500 font-normal']">
-                    <span @click="scrollToView(h2.offsetTop)">{{ h2.text }}</span>
+                    <span @click="scrollToView(h2.offsetTop)" class="hover:text-sky-600">{{ h2.text }}</span>
                     <!-- 三级标题 -->
                     <ul v-if="h2.children && h2.children.length > 0">
                         <li v-for="(h3, index2) in h2.children" :key="index2" class="pl-5" :class="[h3.index == activeHeadingIndex ? 'active text-sky-600 border-l-2 border-sky-600 font-bold' : 'text-gray-500 font-normal']">
-                            <span @click="scrollToView(h3.offsetTop)">{{ h3.text }}</span>
+                            <span @click="scrollToView(h3.offsetTop)" class="hover:text-sky-600">{{ h3.text }}</span>
                         </li>
                     </ul>
                 </li>
@@ -48,6 +48,9 @@ onMounted(() => {
             if (mutation.type === 'childList') {
                 // 先清空目录缓存数据
                 titles.value = []
+                // 计算目录数据
+                initTocData(container)
+
                 // 监听所有图片的加载事件
                 const images = container.querySelectorAll('img');
                 images.forEach(img => {
